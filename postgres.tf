@@ -81,7 +81,7 @@ resource "null_resource" "init_db" {
     command = <<EOT
 timeout=300
 elapsed=0
-until PGPASSWORD="SuperSecret123!" psql -h ${aws_db_instance.postgres.endpoint} -U postgres -d postgres -c '\\q'; do
+until PGPASSWORD="SuperSecret123!" psql -h ${aws_db_instance.postgres.endpoint} -p 5432 -U postgres -d postgres -c '\\q'; do
   sleep 10
   elapsed=$((elapsed + 10))
   if [ $elapsed -ge $timeout ]; then
@@ -90,11 +90,11 @@ until PGPASSWORD="SuperSecret123!" psql -h ${aws_db_instance.postgres.endpoint} 
   fi
 done
 
-# Create database if it doesn't exist
-PGPASSWORD="SuperSecret123!" psql -h ${aws_db_instance.postgres.endpoint} -U postgres -d postgres -c "CREATE DATABASE facebook;"
+# Create database
+PGPASSWORD="SuperSecret123!" psql -h ${aws_db_instance.postgres.endpoint} -p 5432 -U postgres -d postgres -c "CREATE DATABASE facebook;"
 
 # Initialize tables
-PGPASSWORD="SuperSecret123!" psql -v ON_ERROR_STOP=1 -h ${aws_db_instance.postgres.endpoint} -U postgres -d facebook -f ./init.sql
+PGPASSWORD="SuperSecret123!" psql -v ON_ERROR_STOP=1 -h ${aws_db_instance.postgres.endpoint} -p 5432 -U postgres -d facebook -f ./init.sql
 EOT
   }
 }
