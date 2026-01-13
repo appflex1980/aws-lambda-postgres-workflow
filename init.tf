@@ -1,3 +1,4 @@
+
 # ----------------------
 # Initialize DB + Tables
 # ----------------------
@@ -27,5 +28,6 @@ variable "db_password" {
   type        = string
   default     = "SuperSecret123!"
 }
+
 
 
