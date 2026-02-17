@@ -1,7 +1,4 @@
 
-# ----------------------
-# VPC Outputs
-# ----------------------
 output "vpc_id" {
   description = "ID of the main VPC"
   value       = aws_vpc.main.id
@@ -17,9 +14,6 @@ output "private_subnet_ids" {
   value       = [for s in aws_subnet.private : s.id]
 }
 
-# ----------------------
-# Internet Gateway / NAT Outputs
-# ----------------------
 output "internet_gateway_id" {
   description = "ID of the Internet Gateway"
   value       = aws_internet_gateway.igw.id
@@ -30,9 +24,6 @@ output "nat_gateway_id" {
   value       = aws_nat_gateway.nat.id
 }
 
-# ----------------------
-# Security Groups
-# ----------------------
 output "lambda_security_group_id" {
   description = "ID of the Lambda security group"
   value       = aws_security_group.lambda_sg.id
@@ -43,9 +34,6 @@ output "rds_security_group_id" {
   value       = aws_security_group.rds_sg.id
 }
 
-# ----------------------
-# Lambda Function
-# ----------------------
 output "lambda_function_name" {
   description = "Name of the Lambda function"
   value       = aws_lambda_function.etl.function_name
@@ -56,9 +44,6 @@ output "lambda_function_arn" {
   value       = aws_lambda_function.etl.arn
 }
 
-# ----------------------
-# RDS Postgres
-# ----------------------
 output "rds_endpoint" {
   description = "RDS Postgres endpoint"
   value       = aws_db_instance.postgres.address
@@ -80,9 +65,6 @@ output "rds_username" {
 }
 
 
-# ----------------------
-# S3 Bucket Outputs
-# ----------------------
 output "etl_bucket_name" {
   description = "The name of the ETL S3 bucket"
   value       = aws_s3_bucket.etl_bucket.id
